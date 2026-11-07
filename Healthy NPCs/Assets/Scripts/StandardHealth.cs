@@ -8,9 +8,13 @@ public class StandardHealth : MonoBehaviour, IHealth {
 
     public event Action<float> OnHPPctChanged = delegate { };
     public event Action OnDied = delegate { };
+    private Animation damageEffect;
+
 
     private void Start() {
         currentHealth = startingHealth;
+        damageEffect = GameObject.Find("Damage effect").GetComponent<Animation>();
+
     }
 
     public float CurrentHpPct {
@@ -23,6 +27,8 @@ public class StandardHealth : MonoBehaviour, IHealth {
         }
 
         currentHealth -= amount;
+        damageEffect.Play("Damage Effect");
+
 
         OnHPPctChanged(CurrentHpPct);
 
